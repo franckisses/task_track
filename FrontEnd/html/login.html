@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="../static/js/jquery-3.6.1.min.js"></script>
+    <script src="../static/js/init.js"></script>
+    <script src="../static/js/md5.min.js"></script>
+</head>
+<body>
+    <h2>Report Login</h2>
+    <hr>
+    <p>USERNAME:<input type="text" id="username" placeholder="username"></p>
+    <p>PASSWORD:<input type="password" id="password" placeholder="password"></p>
+    <p><button onclick="submit()">submit</button></p>
+</body>
+<script>
+    function submit(){
+        username = $('#username').val()
+        password2 = md5($('#password').val())
+        data = {'username': username, 'password':password}
+        if (username && password){
+            $.ajax({
+                type: 'POST',
+                url: BASEURL + 'tokens',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (result){
+                    if (result.status=200){
+                        window.location.href='index.html'
+                    } else {
+                        alert("ERROR:", result.error)
+                    }
+                }
+
+            })
+        }
+    }
+</script>
+</html>
