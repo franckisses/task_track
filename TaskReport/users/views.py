@@ -10,6 +10,9 @@ def register(request):
         data = json.loads(request.body)
         username = data.get('username')
         password = data.get('password')
+        if not (username and password):
+            result = {'status': 10001, error: 'username or password error!'}
+        
         print(username, password)
         return JsonResponse({'status': 200})
     elif request.method == 'GET':
