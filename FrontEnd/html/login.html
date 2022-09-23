@@ -19,7 +19,7 @@
 <script>
     function submit(){
         username = $('#username').val()
-        password2 = md5($('#password').val())
+        password = md5($('#password').val())
         data = {'username': username, 'password':password}
         if (username && password){
             $.ajax({
@@ -29,6 +29,9 @@
                 data: JSON.stringify(data),
                 success: function (result){
                     if (result.status=200){
+                        confirm('登录成功!')
+                        localStorage.setItem('username', result.username);
+                        localStorage.setItem('token', result.data.token);
                         window.location.href='index.html'
                     } else {
                         alert("ERROR:", result.error)
