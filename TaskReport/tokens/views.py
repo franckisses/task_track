@@ -48,7 +48,6 @@ def tokens(request):
     #make token
     token = make_token(username)
     result = {'code':200, 'username':username, 'data':{'token':token}}
-    print(result)
     # 前端会有
     return JsonResponse(result)
 
