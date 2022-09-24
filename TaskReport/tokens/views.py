@@ -1,10 +1,12 @@
 import hashlib
 import json
 import time
+from django.utils import timezone
 # from carts.utils import *
 from django.http import JsonResponse
 from users.models import UserProfile
 
+from utils.loging_decorator import get_user_by_request
 
 # Create your views here.
 def tokens(request):
@@ -46,6 +48,8 @@ def tokens(request):
         result = {'code': 106, 'error': 'username or password is wrong'}
         return JsonResponse(result)
     #make token
+    user.last_login = timezone.now()
+    user.save()
     token = make_token(username)
     result = {'code':200, 'username':username, 'data':{'token':token}}
     # 前端会有
@@ -61,4 +65,14 @@ def make_token(username, expire=3600 * 24):
     now = time.time()
     payload = {'username': username, 'exp': int(now + expire)}
     return jwt.encode(payload, key, algorithm='HS256')
+
+
+def refresh_token(request):
+    if request.method == 'GET':
+        if get_user_by_request(request):
+            result = {'code':200, 'data': 'token still alive'}
+            return JsonResponse(result)
+        else:
+            result ={'code':107, 'error': 'please relogin '}
+            return JsonResponse(result)
 
