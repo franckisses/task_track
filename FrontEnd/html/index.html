@@ -4,10 +4,100 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <style>
+    #category {
+    width: 40;
+    height: 60;
+    font-family: verdana;
+    margin: 30px;
+    }
+    .content-block {
+        width: 800px;
+        margin-left: 25px;
+    }
+    .each-content {
+        height: 18px;
+    }
+    a {
+        margin-right: 30px;
+    }
+    .status {
+    float: right;
+    margin-right: 30px;  
+    }
+    #ongoing {
+        width: 10px;
+        height: 10px;
+        border: 1px solid green;
+        border-radius: 50%;
+        background-color: green;
+    }
+
+    #todo {
+        width: 10px;
+        height: 10px;
+        border: 1px solid yellow;
+        border-radius: 50%;
+        background-color: yellow
+    }
+
+    #finished {
+        width: 10px;
+        height: 10px;
+        border: 1px solid red;
+        border-radius: 50%;
+        background-color: red;
+    }
+    #my_login {
+        float: right;
+        margin-right: 10px;
+        list-style:none
+    }
+    #title {
+        list-style: none;
+    }
+
+    </style>
+    <script src="../static/js/jquery-3.6.1.min.js"></script>
+    <script src="../static/js/init.js"></script>
+    <title>Overview</title>
 </head>
 <body>
-    <h2>Report Overview</h2>
+    <ul>
+    <li id="title"><h2>Task overview</h2></li>
+    <li id ='my_login'><a href="login.html" >登录</a></li>
+    </ul>
+    <a id="category" class="all" href="index.html">All</a>
+    <a id="category" class="todo" href="index.html">TODO</a>
+    <a id="category" class="ongoing" href="index.html">Ongoing</a>
+    <a id="category" class="finished" href="index.html">Finished</a> 
+    <a id="category" href="add.html">ADD</a>
     <hr>
+    <div class="content-block">
+        <div>
+            <div>
+                <span>ID &nbsp;</span>
+                <a>Titile</a>
+                <span class="stauts">Status</span>
+            </div>
+            <hr>
+        </div>
+    </div>
+    <div></div>
+
 </body>
+<script>
+    var loginName = window.localStorage.getItem('username');
+    if (loginName){
+        $('#my_login').children().html(loginName).on('click',(e)=>{
+            e.preventDefault()
+            window.localStorage.clear();
+            alert('退出登录')
+            window.location.reload()
+            $('#my_login').children().html('登录')
+        })
+        count = window.localStorage.getItem('dashop_count')
+        $('.my_cart_count').html(count)
+    }
+</script>
 </html>

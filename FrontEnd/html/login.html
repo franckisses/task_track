@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Login</title>
     <script src="../static/js/jquery-3.6.1.min.js"></script>
     <script src="../static/js/init.js"></script>
     <script src="../static/js/md5.min.js"></script>
@@ -17,6 +17,22 @@
     <p><button onclick="submit()">submit</button></p>
 </body>
 <script>
+    // 检查token是否还在有效期
+    $(function () {
+        $.ajax({
+            type: 'GET',
+            url: BASEURL + 'tokens/refresh',
+            contentType: 'application/json',
+            beforeSend:function (request) {
+                 request.setRequestHeader('authorization',window.localStorage.getItem('token'))
+             },
+            success: function(result) {
+                if (result.code==200){
+                    window.location.href='index.html'
+                }
+            }
+        })
+    })
     function submit(){
         username = $('#username').val()
         password = md5($('#password').val())

@@ -1,0 +1,44 @@
+#category {
+    width: 40;
+    height: 60;
+    font-family: verdana;
+    margin: 30px;
+}
+.content-block {
+    width: 800px;
+    margin-left: 25px;
+}
+.each-content {
+    height: 18px;
+}
+a {
+    margin-right: 30px;
+}
+.status {
+  float: right;
+  margin-right: 30px;  
+}
+#ongoing {
+    width: 10px;
+    height: 10px;
+    border: 1px solid green;
+    border-radius: 50%;
+    background-color: green;
+}
+
+#todo {
+    width: 10px;
+    height: 10px;
+    border: 1px solid yellow;
+    border-radius: 50%;
+    background-color: yellow
+}
+
+#finished {
+    width: 10px;
+    height: 10px;
+    border: 1px solid red;
+    border-radius: 50%;
+    background-color: red;
+}
+
