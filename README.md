@@ -7,6 +7,7 @@ Task model 设计
 
 任务表设计
 ```
+id 任务id 
 creator 创建人 
 project_name 项目名称
 task_name 任务名称
@@ -26,5 +27,7 @@ deadline 最后期限
 task_id:  任务id onetomany
 prove_pic: 完成图片
 result_data: 完成数据
+created_time 创建时间
 ```
+
 
