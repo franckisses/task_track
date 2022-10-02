@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="../static/js/jquery-3.6.1.min.js"></script>
     <title>ADD Task</title>
 </head>
 <body>
@@ -14,7 +16,10 @@
     <p>Customer Name:<input id="customer" type="text"></p>
     <p>Task Name:<input id="task-name" type="text"></p>
     <p>Task Desc:<input id="task-desc" type="text"></p>
-    <p>Design File:<input id="desc-detail" type="file"></p>
+    <p>Doc: <button onclick="addfile()">+</button></p>
+    <ol class="files">
+        <li><p class="each-file"><input id="desc-detail1" type="file" ></p></li>
+    </ol>
     <button>submit</button>
 </body>
 <script>
@@ -23,6 +28,12 @@
     var loginName = window.localStorage.getItem('username');
     if (loginName){
         $('#my_login').html(loginName)
+    }
+    function addfile(){
+        files_num = $('.each-file').length
+        ++ files_num
+        $('ol').append( 
+        `<li><p class="each-file"><input id="desc-detail`+ files_num +`" type="file" ></p></li>`)
     }
     function submit(){
         project_country = $('#country').val()

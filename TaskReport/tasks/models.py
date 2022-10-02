@@ -19,3 +19,7 @@ class Tasks(models.Model):
 
     class Meta:
         db_table = 'all_tasks'
+
+class TaskFile(models.Model):
+    task_id = models.ForeignKey(Tasks, on_delete=models.CASCADE)
+    file_path = models.CharField(max_length=150,null=False)
