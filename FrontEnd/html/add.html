@@ -6,19 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="../static/js/jquery-3.6.1.min.js"></script>
+    <style>
+    #category {
+        width: 40;
+        height: 60;
+        font-family: verdana;
+        margin: 30px;
+    }
+    a {
+        margin-right: 30px;
+    }
+   
+    #my_login {
+        float: right;
+        margin-right: 10px;
+        list-style:none
+    }
+    #title {
+        list-style: none;
+    }
+    </style>
     <title>ADD Task</title>
 </head>
 <body>
-    <h2>Task Add</h2>
+    <ul>
+        <li id="title"><h2>Task Add</h2></li>
+        <li id ='my_login'><a href="login.html" >登录</a></li>
+    </ul>
+    <a id="category" class="all">ADD New Task Here</a>
     <hr>
-    <span>Creator: <span id="my_login"></span></span>
     <p>Project Country:<input id="country" type="text"></p>
     <p>Customer Name:<input id="customer" type="text"></p>
     <p>Task Name:<input id="task-name" type="text"></p>
     <p>Task Desc:<input id="task-desc" type="text"></p>
     <p>Doc: <button onclick="addfile()">+</button></p>
     <ol class="files">
-        <li><p class="each-file"><input id="desc-detail1" type="file" ></p></li>
+        <li><p class="each-file"><input id="desc-detail1" type="file" ></li>
     </ol>
     <button>submit</button>
 </body>
@@ -27,13 +50,23 @@
     // 2. 如果登录的话，那么发送请求验证是否还在有效期呢。不在有效期的话，让重新登录
     var loginName = window.localStorage.getItem('username');
     if (loginName){
-        $('#my_login').html(loginName)
+        $('#my_login').children().html(loginName).on('click',(e)=>{
+            e.preventDefault()
+            window.localStorage.clear();
+            alert('退出登录')
+            window.location.reload()
+            $('#my_login').children().html('登录')
+        })
     }
     function addfile(){
         files_num = $('.each-file').length
         ++ files_num
         $('ol').append( 
-        `<li><p class="each-file"><input id="desc-detail`+ files_num +`" type="file" ></p></li>`)
+        `<li><p class="each-file"><input id="desc-detail`+ files_num +`" type="file" ><button onclick="remove(this)">-</button></p></li>`)
+    }
+    function remove(el) {
+        var element = el;
+        element.parentElement.parentElement.remove()
     }
     function submit(){
         project_country = $('#country').val()
