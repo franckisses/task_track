@@ -25,6 +25,27 @@
     #title {
         list-style: none;
     }
+    input {
+        width: 450px;
+    }
+    #text-desc {
+        height:100px;
+        width:450px;
+        word-break:break-all;
+    } 
+    #submit {
+        background: #0454aa;
+        color: white;
+        border-style: outset;
+        border-color: #0066A2;
+        height: 30px;
+        width: 200px;
+        font: bold1 5px arial,sans-serif;
+        text-shadow: none;
+        margin-left:130px;
+
+    }
+    
     </style>
     <title>ADD Task</title>
 </head>
@@ -35,15 +56,40 @@
     </ul>
     <a id="category" class="all">ADD New Task Here</a>
     <hr>
-    <p>Project Country:<input id="country" type="text"></p>
-    <p>Customer Name:<input id="customer" type="text"></p>
-    <p>Task Name:<input id="task-name" type="text"></p>
-    <p>Task Desc:<input id="task-desc" type="text"></p>
-    <p>Doc: <button onclick="addfile()">+</button></p>
+    <table>
+        <tr>
+        <td>Project Country:</td>
+        <td><input id="country" type="text"></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td>Customer Name:</td>
+        <td><input id="customer" type="text"></td>
+        <td></td>
+        </tr>
+    
+        <tr>
+        <td>Task Name:</td>
+        <td><input id="task-name" type="text"></td>
+        <td></td>
+        </tr>
+    
+        <tr>
+        <td>Task Desc:</td>
+        <td><textarea id="text-desc"></textarea></td>
+        <td></td>
+        </tr>
+    
+        <tr>
+            <td>Doc:</td>
+            <td><button onclick="addfile()">+</button></td>
+            <td></td>
+        </tr>
+    </table>
     <ol class="files">
         <li><p class="each-file"><input id="desc-detail1" type="file" ></li>
     </ol>
-    <button>submit</button>
+    <button id="submit" onclick="submit()">submit</button>
 </body>
 <script>
     // 1. 检查如果没有登录的话，那么重定向去登录页面
@@ -73,28 +119,6 @@
         customer_name = $('#customer').val()
         task_name = $('task-name').val()
         task_desc = $('task-desc').val()
-        desc_file = $('desc-deatil').files[0]
-        data = {'username': username, 'password':password}
-        if (username && password){
-            $.ajax({
-                type: 'POST',
-                url: BASEURL + 'tokens',
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                success: function (result){
-                    console.log(result)
-                    if (result.code==200){
-                        confirm('登录成功!')
-                        localStorage.setItem('username', result.username);
-                        localStorage.setItem('token', result.data.token);
-                        window.location.href='index.html'
-                    } else {
-                        alert(result.error)
-                    }
-                }
-
-            })
-        }
     }
 </script>
 </html>
