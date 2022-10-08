@@ -1,10 +1,3 @@
-# -*- coding:utf-8 -*-
-#        > File Name: loging_decorator.py
-#      > Author: GuoXiaoNao
-#     > Mail: 250919354@qq.com
-#     > Created Time: Fri 17 May 2019 04:39:34 PM CST
-
-
 from functools import wraps
 from django.http import JsonResponse
 import json
@@ -20,13 +13,12 @@ def logging_check(func):
     @wraps(func)
     def wrapper(self, request, *args, **kwagrs):
         token = request.META.get('HTTP_AUTHORIZATION')
-        # print(request.META.get('HTTP_REFERER'))
         if not token:
             result = {'code':403, 'error':'Please login'}
             return JsonResponse(result)
 
         try:
-            res = jwt.decode(token, TOKEN_KEY)
+            res = jwt.decode(token, TOKEN_KEY, algorithms=['HS256'])
         except Exception as e:
             print('jwt decode error is %s'%(e))
             result = {'code':403, 'error':'Please login'}
