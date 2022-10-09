@@ -127,7 +127,7 @@
         customer_name = $('#customer').val()
         task_name = $('#task-name').val()
         task_desc = $('#task-desc').val()
-        file1 = $('#desc-detail1')[0].files
+        files = $('#desc-detail1')[0].files
         // 判断文件有多少个.
         // TODO 
         // 1. 原生的js 文件最多能上传多少个？
@@ -138,7 +138,7 @@
             'customer_name': customer_name,
             'task_name': task_name,
             'task_desc': task_desc,
-            'file1': file1
+            'files': files
         }
         $.ajax({
             url: BASEURL+'tasks/add' ,
