@@ -16,6 +16,8 @@ class Tasks(models.Model):
     frontend_finished_rate = models.FloatField(verbose_name='前段完成度')
     finished_rate = models.FloatField(verbose_name='完成度')
     deadline = models.DateField(auto_now=False,auto_now_add=False,verbose_name='最后期限')
+    task_desc = models.TextField()
+    task_name = models.CharField(max_length=150)
 
     class Meta:
         db_table = 'all_tasks'

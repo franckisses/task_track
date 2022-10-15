@@ -28,7 +28,7 @@
     input {
         width: 450px;
     }
-    #text-desc {
+    #task-desc {
         height:100px;
         width:450px;
         word-break:break-all;
@@ -80,7 +80,13 @@
     
         <tr>
         <td>Task Desc:</td>
-        <td><textarea id="text-desc"></textarea></td>
+        <td><textarea id="task-desc"></textarea></td>
+        <td></td>
+        </tr>
+
+        <tr>
+        <td>Deadline:</td>
+        <td><input id="deadline" type="date"></td>
         <td></td>
         </tr>
     
@@ -127,7 +133,8 @@
         customer_name = $('#customer').val()
         task_name = $('#task-name').val()
         task_desc = $('#task-desc').val()
-        files = $('#desc-detail1')[0].files
+        deadline = $('#deadline').val()
+        files = $('#desc-detail1').prop('files')[0];
         // 判断文件有多少个.
         // TODO 
         // 1. 原生的js 文件最多能上传多少个？
@@ -138,11 +145,12 @@
             'customer_name': customer_name,
             'task_name': task_name,
             'task_desc': task_desc,
-            'files': files
+            'deadline': deadline
+            //'files': files
         }
         $.ajax({
             url: BASEURL+'tasks/add' ,
-            contentType :'application/json',
+            contentType :'multipart/form-data;application/json',
             datatype: JSON,
             type : 'post',
             data : JSON.stringify(data) ,
@@ -152,6 +160,10 @@
             success:function (data) {
                 if (data.code == 200){
 			    	alert('提交成功')
+                    $('#country').val("")
+                    $('#customer').val("")
+                    $('#task-name').val("")
+                    $('#task-desc').val("")
 				} else if (data.code=403) {
                     window.location.href='login.html'
                 }
