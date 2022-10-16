@@ -32,15 +32,6 @@
         border-radius: 50%;
         background-color: green;
     }
-
-    #todo {
-        width: 10px;
-        height: 10px;
-        border: 1px solid yellow;
-        border-radius: 50%;
-        background-color: yellow
-    }
-
     #finished {
         width: 10px;
         height: 10px;
@@ -56,7 +47,6 @@
     #title {
         list-style: none;
     }
-
     </style>
     <script src="../static/js/jquery-3.6.1.min.js"></script>
     <script src="../static/js/init.js"></script>
@@ -68,7 +58,6 @@
     <li id ='my_login'><a href="login.html" >登录</a></li>
     </ul>
     <a id="category" class="all" href="index.html">All</a>
-    <a id="category" class="todo" href="index.html">TODO</a>
     <a id="category" class="ongoing" href="index.html">Ongoing</a>
     <a id="category" class="finished" href="index.html">Finished</a> 
     <a id="category" href="add.html">ADD</a>
@@ -97,5 +86,20 @@
             $('#my_login').children().html('登录')
         })
     }
+    $(function () {
+        $.ajax({
+            type: 'GET',
+            url: BASEURL + 'tasks',
+            contentType: 'application/json',
+            beforeSend:function (request) {
+                 request.setRequestHeader('authorization',window.localStorage.getItem('token'))
+             },
+            success: function(result) {
+                if (result.code==200){
+                    window.location.href='index.html'
+                }
+            }
+        })
+    })
 </script>
 </html>

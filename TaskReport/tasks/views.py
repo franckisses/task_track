@@ -38,8 +38,16 @@ class AddTasks(View):
         new_tasks.save()
         return JsonResponse({'code':200})
 
+    @logging_check
     def get(self,request):
-        pass
+        user = get_user_by_request(request)
+        # 普通用户只能获取自己的任务
+        if user.role =='normal':
+            pass
+        elif user.role == 'developer':
+            pass
+        elif user.role == 'admin':
+            pass
 
     def update(self, request):
         pass
