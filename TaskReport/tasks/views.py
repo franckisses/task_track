@@ -2,8 +2,10 @@ import json
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.generic import View
+from django.core import serializers
 
 from .models import Tasks
+from users.models import UserProfile
 from utils.loging_decorator import logging_check, get_user_by_request
 # Create your views here.
 
@@ -38,11 +40,16 @@ class AddTasks(View):
         new_tasks.save()
         return JsonResponse({'code':200})
 
+class Tasks(View):
     @logging_check
     def get(self,request):
         user = get_user_by_request(request)
         # 普通用户只能获取自己的任务
         if user.role =='normal':
+            Users = UserProfile.objects.filter(username=user)
+            print(Users.id)
+            data = Users.Tasks_set().all()
+            print(data)
             pass
         elif user.role == 'developer':
             pass
