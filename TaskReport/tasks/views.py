@@ -40,21 +40,24 @@ class AddTasks(View):
         new_tasks.save()
         return JsonResponse({'code':200})
 
-class Tasks(View):
+class GetTasks(View):
     @logging_check
     def get(self,request):
         user = get_user_by_request(request)
         # 普通用户只能获取自己的任务
-        if user.role =='normal':
-            Users = UserProfile.objects.filter(username=user)
-            print(Users.id)
-            data = Users.Tasks_set().all()
-            print(data)
+        query_user = UserProfile.objects.filter(username=user)[0]
+        role, u_id = query_user.role, query_user.id
+
+        if role =='normal':
             pass
-        elif user.role == 'developer':
+        elif role == 'developer':
             pass
-        elif user.role == 'admin':
+        elif role == 'admin':
             pass
+        data = serializers.serialize('json', Tasks.objects.all())
+        print(data)
+        data = {'code':200}
+        return JsonResponse(data)
 
     def update(self, request):
         pass
