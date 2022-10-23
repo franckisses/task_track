@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
     'tokens',
-    'tasks'
+    'tasks',
+    'rest_framework',
 
 ]
 
