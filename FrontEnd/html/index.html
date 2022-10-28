@@ -12,7 +12,6 @@
     margin: 30px;
     }
     .content-block {
-        width: 800px;
         margin-left: 25px;
     }
     .each-content {
@@ -47,6 +46,28 @@
     #title {
         list-style: none;
     }
+    #id {
+        width: 30px;
+    }
+    #status {
+        width: 40px;
+    }
+    #tr_title {
+        width : 750px;
+    }
+    #country {
+        width: 120px;
+    }
+    #operator {
+        width: 120px;
+    }
+    #createtime  {
+        width: 150px;
+    }
+    #deadline {
+        width: 120px;
+    }
+
     </style>
     <script src="../static/js/jquery-3.6.1.min.js"></script>
     <script src="../static/js/init.js"></script>
@@ -63,14 +84,25 @@
     <a id="category" href="add.html">ADD</a>
     <hr>
     <div class="content-block">
-        <div>
-            <div>
-                <span>ID &nbsp;</span>
-                <a>Titile</a>
-                <span class="stauts">Status</span>
-            </div>
-            <hr>
-        </div>
+        <table>
+            <th id='id'>ID</th>
+            <th id='tr_title'>Titile</th>
+            <th id='country'>Country</th>
+            <th id='operator'>Operator</th>
+            <th id='createtime'>Create Time</th>
+            <th id='deadline'>Deadline</th>
+            <th id='status'>Status</th>
+            <tr>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+
+            </tr>
+        </table>
     </div>
     <div></div>
 

@@ -7,7 +7,7 @@ from django.core import serializers
 from .models import Tasks
 from users.models import UserProfile
 from utils.loging_decorator import logging_check, get_user_by_request
-from .drf_ser import TaskSerializer
+
 # Create your views here.
 
 
@@ -55,8 +55,10 @@ class GetTasks(View):
             pass
         elif role == 'admin':
             pass
-        print(TaskSerializer(Tasks.objects.all()))
-        data = {'code':200}
+        ser_data = serializers.serialize('json',Tasks.objects.all(),
+                fields=('country', 'operator','created_time',
+                    'task_name','deadline', 'finished_rate'))
+        data = {'code':200, 'data': ser_data}
         return JsonResponse(data)
 
     def update(self, request):
