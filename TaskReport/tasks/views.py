@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.generic import View
 from django.core import serializers
-
+from django.db.models import Q
 from .models import Tasks
 from users.models import UserProfile
 from utils.loging_decorator import logging_check, get_user_by_request
@@ -48,14 +48,19 @@ class GetTasks(View):
         # 普通用户只能获取自己的任务
         query_user = UserProfile.objects.filter(username=user)[0]
         role, u_id = query_user.role, query_user.id
-
         if role =='normal':
-            pass
+            ser_data = serializers.serialize('json',
+                    Tasks.objects.filter(uid_id=u_id),
+                    fields=('country', 'operator','created_time',
+                    'task_name','deadline', 'finished_rate'))
         elif role == 'developer':
-            pass
+            ser_data = serializers.serialize('json',
+                    Tasks.objects.filter(Q(backend_handler=query_user.username)
+                        | Q(frontend_handler=query_user.username)),
+                    fields=('country', 'operator','created_time',
+                    'task_name','deadline', 'finished_rate'))
         elif role == 'admin':
-            pass
-        ser_data = serializers.serialize('json',Tasks.objects.all(),
+            ser_data = serializers.serialize('json',Tasks.objects.all(),
                 fields=('country', 'operator','created_time',
                     'task_name','deadline', 'finished_rate'))
         data = {'code':200, 'data': ser_data}
