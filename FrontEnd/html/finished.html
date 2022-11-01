@@ -113,7 +113,7 @@
     $(function () {
         $.ajax({
             type: 'GET',
-            url: BASEURL + 'tasks',
+            url: BASEURL + 'tasks/finished',
             contentType: 'application/json',
             beforeSend:function (request) {
                  request.setRequestHeader('authorization',window.localStorage.getItem('token'))

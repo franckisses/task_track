@@ -73,7 +73,60 @@ class GetTasks(View):
 
 class ModifyTasks(View):
 
+    @logging_check
     def post(self, request):
         pass
 
+class OngoingTasks(View):
 
+    @logging_check
+    def get(self, request):
+        user = get_user_by_request(request)
+        # 普通用户只能获取自己的任务
+        query_user = UserProfile.objects.filter(username=user)[0]
+        role, u_id = query_user.role, query_user.id
+        if role =='normal':
+            ser_data = serializers.serialize('json',
+                    Tasks.objects.filter(Q(uid_id=u_id)| Q(finished_rate<1)),
+                    fields=('country', 'operator','created_time',
+                    'task_name','deadline', 'finished_rate'))
+        elif role == 'developer':
+            ser_data = serializers.serialize('json',
+                    Tasks.objects.filter(Q(backend_handler=query_user.username)
+                        | Q(frontend_handler=query_user.username) |
+                        Q(finished_rate <1)),
+                    fields=('country', 'operator','created_time',
+                    'task_name','deadline', 'finished_rate'))
+        elif role == 'admin':
+            ser_data = serializers.serialize('json',Tasks.objects.all(finished_rate<1),
+                fields=('country', 'operator','created_time',
+                    'task_name','deadline', 'finished_rate'))
+        data = {'code':200, 'data': ser_data}
+        return JsonResponse(data)
+
+class FinishedTasks(View):
+
+    @logging_check
+    def get(self, request):
+        user = get_user_by_request(request)
+        # 普通用户只能获取自己的任务
+        query_user = UserProfile.objects.filter(username=user)[0]
+        role, u_id = query_user.role, query_user.id
+        if role =='normal':
+           ser_data = serializers.serialize('json',
+                    Tasks.objects.filter(Q(uid_id=u_id)| Q(finished_rate=1)),
+                    fields=('country', 'operator','created_time',
+                    'task_name','deadline', 'finished_rate'))
+        elif role == 'developer':
+            ser_data = serializers.serialize('json',
+                    Tasks.objects.filter(Q(backend_handler=query_user.username)
+                        | Q(frontend_handler=query_user.username) |
+                        Q(finished_rate =1)),
+                    fields=('country', 'operator','created_time',
+                    'task_name','deadline', 'finished_rate'))
+        elif role == 'admin':
+            ser_data = serializers.serialize('json',Tasks.objects.all(finished_rate=1),
+                fields=('country', 'operator','created_time',
+                    'task_name','deadline', 'finished_rate'))
+        data = {'code':200, 'data': ser_data}
+        return JsonResponse(data)

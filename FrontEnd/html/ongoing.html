@@ -79,7 +79,7 @@
     <li id ='my_login'><a href="login.html" >登录</a></li>
     </ul>
     <a id="category" class="all" href="index.html">All</a>
-    <a id="category" class="ongoing" href="onging.html">Ongoing</a>
+    <a id="category" class="ongoing" href="ongoing.html">Ongoing</a>
     <a id="category" class="finished" href="finished.html">Finished</a> 
     <a id="category" href="add.html">ADD</a>
     <hr>
@@ -113,7 +113,7 @@
     $(function () {
         $.ajax({
             type: 'GET',
-            url: BASEURL + 'tasks',
+            url: BASEURL + 'tasks/ongoing',
             contentType: 'application/json',
             beforeSend:function (request) {
                  request.setRequestHeader('authorization',window.localStorage.getItem('token'))
