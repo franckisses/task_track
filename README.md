@@ -46,10 +46,14 @@ TODO list
 |8.添加页面通过点击，返回主页|✓|
 |9.根据不同用户角色返回列表|✓|
 |10.完成前端展示所有任务|✓|
-|11.完成切换不同维度展示||
+|11.完成切换不同维度展示|✓|
 |12.点击展示相关details||
-|13.点击ongong 显示相关信息||
-|14.点击finished显示相关信息||
+|13.点击ongong 显示相关信息|✓|
+|14.点击finished显示相关信息|✓|
 |15.点击相关表头进行排序||
 
-
+tips:
+1. 
+FloatField vs. DecimalField
+The FloatField class is sometimes mixed up with the DecimalField class. Although they both represent real numbers, they represent those numbers differently. FloatField uses Python’s float type internally, while DecimalField uses Python’s Decimal type. For information on the difference between the two, see Python’s documentation for the decimal module.
+在Django中选择小数的类型时，还是建议选择使用DecimalField。
