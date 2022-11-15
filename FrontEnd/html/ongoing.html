@@ -110,6 +110,14 @@
             $('#my_login').children().html('登录')
         })
     }
+    var current_url = window.location.href.lastIndexOf('/') + 1
+    var curr_path = window.location.href.substring(current_url)          
+    switch (curr_path) {
+        case 'ongoing.html':
+            $('.ongoing').css('text-decoration','none');
+    }
+
+
     $(function () {
         $.ajax({
             type: 'GET',
@@ -128,7 +136,8 @@
                         $('table').append( 
                         `<tr class='each-line' id='table`+ line_num+`'>      
                             <th id='id'>`+obj.pk+`</th>
-                            <th id='tr_title'>`+obj.fields.task_name+`</th>
+                            <th id='tr_title'><a href="task_details.html?id=`+ obj.pk 
+                            +`">`+obj.fields.task_name+`</a></th>
                             <th id='country'>`+obj.fields.country+`</th>
                             <th id='operator'>`+obj.fields.operator+`</th>
                             <th id='createtime'>`+obj.fields.created_time+`</th>

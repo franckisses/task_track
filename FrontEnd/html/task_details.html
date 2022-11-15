@@ -71,33 +71,19 @@
     </style>
     <script src="../static/js/jquery-3.6.1.min.js"></script>
     <script src="../static/js/init.js"></script>
-    <title>Overview</title>
+    <title>Task Details</title>
 </head>
 <body>
     <ul>
-    <li id="title"><h2>Task overview</h2></li>
+    <li id="title"><h2>Task Deatils</h2></li>
     <li id ='my_login'><a href="login.html" >登录</a></li>
     </ul>
     <a id="category" class="all" href="index.html">All</a>
-    <a id="category" class="ongoing" href="ongoing.html">Ongoing</a>
+    <a id="category" class="ongoing" href="onging.html">Ongoing</a>
     <a id="category" class="finished" href="finished.html">Finished</a> 
     <a id="category" href="add.html">ADD</a>
     <hr>
-    <div class="content-block">
-        <table>
-            <tr class='each-line' id='table0'>      
-            <th id='id'>ID</th>
-            <th id='tr_title'>Titile</th>
-            <th id='country'>Country</th>
-            <th id='operator'>Operator</th>
-            <th id='createtime'>Create Time</th>
-            <th id='deadline'>Deadline</th>
-            <th id='status'>Status</th>
-            </tr>
-        </table>
-    </div>
-    <div></div>
-
+   
 </body>
 <script>
     var loginName = window.localStorage.getItem('username');
@@ -110,17 +96,10 @@
             $('#my_login').children().html('登录')
         })
     }
-    var current_url = window.location.href.lastIndexOf('/') + 1
-    var curr_path = window.location.href.substring(current_url)          
-    switch (curr_path) {
-        case 'finished.html':
-            $('.finished').css('text-decoration','none');
-    }
-
     $(function () {
         $.ajax({
             type: 'GET',
-            url: BASEURL + 'tasks/finished',
+            url: BASEURL + 'tasks',
             contentType: 'application/json',
             beforeSend:function (request) {
                  request.setRequestHeader('authorization',window.localStorage.getItem('token'))
@@ -135,8 +114,7 @@
                         $('table').append( 
                         `<tr class='each-line' id='table`+ line_num+`'>      
                             <th id='id'>`+obj.pk+`</th>
-                            <th id='tr_title'><a href="task_details.html?id=`+ obj.pk 
-                            +`">`+obj.fields.task_name+`</a></th>
+                            <th id='tr_title'>`+obj.fields.task_name+`</th>
                             <th id='country'>`+obj.fields.country+`</th>
                             <th id='operator'>`+obj.fields.operator+`</th>
                             <th id='createtime'>`+obj.fields.created_time+`</th>
