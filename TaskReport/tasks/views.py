@@ -133,3 +133,16 @@ class FinishedTasks(View):
                     'task_name','deadline', 'finished_rate'))
         data = {'code':200, 'data': ser_data}
         return JsonResponse(data)
+
+class TaskDetails(View):
+
+    @logging_check
+    def get(self, request, id):
+        user = get_user_by_request(request)
+        query_user = UserProfile.objects.filter(username=user)[0]
+        role, u_id = query_user.role, query_user.id
+        ser_data = serializers.serialize('json',
+                Tasks.objects.filter(Q(uid_id=u_id) & Q(id=id))
+                )
+        data = {'code': 200, 'data': ser_data}
+        return JsonResponse(data)
