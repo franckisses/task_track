@@ -47,26 +47,12 @@
         list-style: none;
     }
     #id {
-        width: 30px;
+        width: 100px;
     }
     #status {
         width: 40px;
     }
-    #tr_title {
-        width : 750px;
-    }
-    #country {
-        width: 120px;
-    }
-    #operator {
-        width: 120px;
-    }
-    #createtime  {
-        width: 150px;
-    }
-    #deadline {
-        width: 120px;
-    }
+
 
     </style>
     <script src="../static/js/jquery-3.6.1.min.js"></script>
@@ -83,7 +69,85 @@
     <a id="category" class="finished" href="finished.html">Finished</a> 
     <a id="category" href="add.html">ADD</a>
     <hr>
-   
+    <table>
+        <tr>
+        <td>Project Country:</td>
+        <td id="project_country"></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td>Customer Name:</td>
+        <td id="customer"></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td>Task Name:</td>
+        <td id="task_name"></td>
+        <td></td>
+        </tr>
+ 
+        <tr>
+        <td>Task Desc:</td>
+        <td id="task_desc"></td>
+        <td></td>
+        </tr>
+
+        <tr>
+            <td>Created Date:</td>
+            <td id="created_time"></td>
+            <td></td>
+        </tr>
+
+        <tr>
+        <td>Deadline:</td>
+        <td id="deadline"></td>
+        <td></td>
+        </tr>
+    
+        <tr>
+            <td>Backend Handler:</td>
+            <td id="backend_handler"></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Frontend Handler:</td>
+            <td id="frontend_handler"></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Deadline:</td>
+            <td id="deadline"></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>priority:</td>
+            <td id="priority"></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Frontend Finished Rate:</td>
+            <td id="frontend_finished_rate"></td>
+            <td></td>
+        </tr>
+        
+        <tr>
+        <td>Backend Finished Rate:</td>
+        <td id="backend_finished_rate"></td>
+        <td></td>
+        </tr>
+
+        <tr>
+            <td>Total Finished Rate:</td>
+            <td id="finished_rate"></td>
+            <td></td>
+        </tr>
+    </table>
+    <span hidden="hidden" id="uid"></span>
+    <span hidden="hidden" id="pk"></span>
 </body>
 <script>
     var loginName = window.localStorage.getItem('username');
@@ -110,7 +174,24 @@
              },
             success: function(result) {
                 if (result.code==200){
-                    console.log(result)
+                    var arr = JSON.parse(result.data)[0]
+                    console.log(arr)
+                    $('#project_country').text(arr.fields.country)
+                    $('#customer').text(arr.fields.operator)
+                    $('#task_name').text(arr.fields.task_name)
+                    $('#task_desc').text(arr.fields.task_desc)
+                    $('#created_time').text(arr.fields.created_time)
+                    $('#deadline').text(arr.fields.deadline)
+                    $('#backend_handler').text(arr.fields.backend_handler)
+                    $('#frontend_handler').text(arr.fields.frontend_handler)
+                    $('#priority').text(arr.fields.priority)
+                    $('#backend_finished_rate').text(arr.fields.backend_finished_rate)
+                    $('#frontend_finished_rate').text(arr.fields.frontend_finished_rate)
+                    $('#frontend_finished_rate').text(arr.fields.frontend_finished_rate)
+                    $('#frontend_finished_rate').text(arr.fields.frontend_finished_rate)
+                    $('#finished_rate').text(arr.fields.finished_rate)
+                    $('#uid').text(arr.fields.uid)
+                    $('#pk').text(arr.pk)
                 }
             }
         })
