@@ -96,32 +96,21 @@
             $('#my_login').children().html('登录')
         })
     }
+    // get url params
+    query_paras = window.location.search
+    urlparams = new URLSearchParams(query_paras)
+    id = urlparams.get('id')
     $(function () {
         $.ajax({
             type: 'GET',
-            url: BASEURL + 'tasks',
+            url: BASEURL + 'tasks/'+ id,
             contentType: 'application/json',
             beforeSend:function (request) {
                  request.setRequestHeader('authorization',window.localStorage.getItem('token'))
              },
             success: function(result) {
                 if (result.code==200){
-                    var arr = JSON.parse(result.data)
-                    for (var i = 0; i < arr.length; i++){
-                        var obj = arr[i];
-                        line_num = $('.each-line').length
-                        ++ line_num
-                        $('table').append( 
-                        `<tr class='each-line' id='table`+ line_num+`'>      
-                            <th id='id'>`+obj.pk+`</th>
-                            <th id='tr_title'>`+obj.fields.task_name+`</th>
-                            <th id='country'>`+obj.fields.country+`</th>
-                            <th id='operator'>`+obj.fields.operator+`</th>
-                            <th id='createtime'>`+obj.fields.created_time+`</th>
-                            <th id='deadline'>`+obj.fields.deadline+`</th>
-                            <th id='status'>`+obj.fields.finished_rate+`</th>
-                            </tr>`)
-                    }
+                    console.log(result)
                 }
             }
         })
