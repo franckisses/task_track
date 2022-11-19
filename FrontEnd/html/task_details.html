@@ -65,7 +65,7 @@
     <li id ='my_login'><a href="login.html" >登录</a></li>
     </ul>
     <a id="category" class="all" href="index.html">All</a>
-    <a id="category" class="ongoing" href="onging.html">Ongoing</a>
+    <a id="category" class="ongoing" href="ongoing.html">Ongoing</a>
     <a id="category" class="finished" href="finished.html">Finished</a> 
     <a id="category" href="add.html">ADD</a>
     <hr>
@@ -93,9 +93,9 @@
         </tr>
 
         <tr>
-            <td>Created Date:</td>
-            <td id="created_time"></td>
-            <td></td>
+        <td>Created Date:</td>
+        <td id="created_time"></td>
+        <td></td>
         </tr>
 
         <tr>
@@ -105,33 +105,33 @@
         </tr>
     
         <tr>
-            <td>Backend Handler:</td>
-            <td id="backend_handler"></td>
-            <td></td>
+        <td>Backend Handler:</td>
+        <td id="backend_handler"></td>
+        <td></td>
         </tr>
 
         <tr>
-            <td>Frontend Handler:</td>
-            <td id="frontend_handler"></td>
-            <td></td>
+        <td>Frontend Handler:</td>
+        <td id="frontend_handler"></td>
+        <td></td>
         </tr>
 
         <tr>
-            <td>Deadline:</td>
-            <td id="deadline"></td>
-            <td></td>
+        <td>Deadline:</td>
+        <td id="deadline"></td>
+        <td></td>
         </tr>
 
         <tr>
-            <td>priority:</td>
-            <td id="priority"></td>
-            <td></td>
+        <td>priority:</td>
+        <td id="priority"></td>
+        <td></td>
         </tr>
 
         <tr>
-            <td>Frontend Finished Rate:</td>
-            <td id="frontend_finished_rate"></td>
-            <td></td>
+        <td>Frontend Finished Rate:</td>
+        <td id="frontend_finished_rate"></td>
+        <td></td>
         </tr>
         
         <tr>
@@ -141,9 +141,9 @@
         </tr>
 
         <tr>
-            <td>Total Finished Rate:</td>
-            <td id="finished_rate"></td>
-            <td></td>
+        <td>Total Finished Rate:</td>
+        <td id="finished_rate"></td>
+        <td onclick="modify()" id="edit"></td>
         </tr>
     </table>
     <span hidden="hidden" id="uid"></span>
@@ -175,7 +175,6 @@
             success: function(result) {
                 if (result.code==200){
                     var arr = JSON.parse(result.data)[0]
-                    console.log(arr)
                     $('#project_country').text(arr.fields.country)
                     $('#customer').text(arr.fields.operator)
                     $('#task_name').text(arr.fields.task_name)
@@ -196,5 +195,22 @@
             }
         })
     })
+
+
+    // 根绝不同的权限来判断用户可以修改的内容；
+    var role = localStorage.getItem('role')
+    if (role == 'normal'){
+        $('#edit').text('+')
+        console.log(role)
+    } else if (role=='admin') {
+        console.log(role)
+    } else if (role=='developer') {
+        console.log(role)
+    }
+
+
+    function modify() {
+        console.log(this.html)
+    }
 </script>
 </html>

@@ -50,8 +50,9 @@ def tokens(request):
     #make token
     user.last_login = timezone.now()
     user.save()
+    role = user.role
     token = make_token(username)
-    result = {'code':200, 'username':username, 'data':{'token':token}}
+    result = {'code':200, 'role': role, 'username':username, 'data':{'token':token}}
     # 前端会有
     return JsonResponse(result)
 
