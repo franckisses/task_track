@@ -52,7 +52,104 @@
     #status {
         width: 40px;
     }
+    .modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 450px;
+    padding: 1.3rem;
+    min-height: 250px;
+    position: absolute;
+    top: 20%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    }
 
+    .modal .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+
+    .modal input {
+    padding: 0.7rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9em;
+    }
+
+    .modal p {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0.4rem 0 0.2rem;
+    }
+
+    button {
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+    }
+
+    .btn {
+    display: inline-block;
+    padding: 0.8rem 1.4rem;
+    font-weight: 700;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1em;
+    }
+
+    .btn-open {
+    position: absolute;
+    bottom: 150px;
+    }
+
+    .btn-close {
+    transform: translate(10px, -20px);
+    padding: 0.5rem 0.7rem;
+    background: #eee;
+    border-radius: 50%;
+    }
+    #mytestmodel {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+    }
+
+    #mytestmodel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #222;
+    position: relative;
+    min-height: 100vh;
+    }
+
+    .overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 1;
+    }
+
+    .hidden {
+     display: none;
+    }
+    .modal {
+     z-index: 2;
+    }
 
     </style>
     <script src="../static/js/jquery-3.6.1.min.js"></script>
@@ -148,6 +245,29 @@
     </table>
     <span hidden="hidden" id="uid"></span>
     <span hidden="hidden" id="pk"></span>
+    
+    <div id="mytestmodel">
+
+    <section class="modal hidden">
+        <div class="flex">
+          <button class="btn-close">⨉</button>
+        </div>
+        <div>
+          <h3>Stay in touch</h3>（保持联系）
+          <p>
+            This is a dummy newsletter form so don't bother trying to test it. Not
+            that I expect you to, anyways.:)（这是一个虚拟的通讯表单，所以不要费心去测试它。反正我也不指望你这么做）
+          </p>
+        </div>
+      
+        <input type="email" id="email" placeholder="brendaneich@js.com" />
+        <button class="btn">Submit</button>
+      </section>
+      
+      <div class="overlay hidden"></div>
+      <button class="btn btn-open">Open Modal</button>
+    </div>
+
 </body>
 <script>
     var loginName = window.localStorage.getItem('username');
@@ -208,7 +328,25 @@
         console.log(role)
     }
 
+    const modal = document.querySelector(".modal");
+    const overlay = document.querySelector(".overlay");
+    const openModalBtn = document.querySelector(".btn-open");
+    const closeModalBtn = document.querySelector(".btn-close");
 
+
+    const openModal = function () {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+    };
+
+    const closeModal = function () {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+    };
+
+    closeModalBtn.addEventListener("click", closeModal);
+
+    openModalBtn.addEventListener("click", openModal);
     function modify() {
         console.log(this.html)
     }
